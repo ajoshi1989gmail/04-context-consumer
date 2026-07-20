@@ -1,0 +1,15 @@
+version: 2.1
+jobs:
+  use-context-secrets:
+    docker:
+      - image: cimg/base:current
+    steps:
+      - checkout
+      - run: |
+          echo "Consuming context-provided env vars (values are masked by CircleCI)"
+          echo "SERVICE_ACCOUNT_ID is set: ${SERVICE_ACCOUNT_ID:+yes}"
+workflows:
+  context-consumer:
+    jobs:
+      - use-context-secrets:
+          context: nhi-shared-secrets
